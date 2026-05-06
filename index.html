@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Worech Consulting Limited — IT and management consultancy. Digital transformation, project management, and PMO governance.">
+    <meta property="og:title" content="Worech Consulting — IT & Management Consultancy">
+    <meta property="og:description" content="IT and management consultancy delivering digital transformation, project management, and governance for corporate clients.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0c0f14">
+    <title>Worech Consulting — IT & Management Consultancy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0c0f14;
+            --bg2: #111520;
+            --bg3: #161b27;
+            --tx: #e8e4df;
+            --tx2: #9a968f;
+            --tx3: #6b6862;
+            --txh: #f5f2ed;
+            --ac: #c9a96e;
+            --ac2: #d9be8a;
+            --br: rgba(201,169,110,0.1);
+            --br2: rgba(255,255,255,0.04);
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --eo: cubic-bezier(0.16,1,0.3,1);
+        }
+
+        *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--tx);
+            line-height: 1.7;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+        ::selection { background: var(--ac); color: var(--bg); }
+        a { color: inherit; text-decoration: none; }
+
+        /* NAV */
+        .nav {
+            position: fixed; top:0; left:0; right:0; z-index:100;
+            padding: 0 clamp(1.5rem,5vw,5rem);
+            height: 68px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(12,15,20,0.8);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--br2);
+            transition: background 0.4s var(--eo), border-color 0.4s var(--eo);
+        }
+        .nav.scrolled { background: rgba(12,15,20,0.95); border-bottom-color: var(--br); }
+        .nav-left { display: flex; align-items: center; gap: 0.6rem; }
+        .nav-left svg { width: 28px; height: 28px; }
+        .nav-name {
+            font-weight: 500; font-size: 0.78rem;
+            letter-spacing: 0.2em; text-transform: uppercase; color: var(--txh);
+        }
+        .nav-name span { color: var(--ac); font-weight: 300; margin-left: 0.25em; }
+        .nav-right { display: flex; gap: 2rem; align-items: center; list-style: none; }
+        .nav-right a {
+            font-size: 0.75rem; font-weight: 400; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--tx2); transition: color 0.3s;
+        }
+        .nav-right a:hover { color: var(--ac); }
+        .nav-right .cta-link {
+            padding: 0.55em 1.4em; border: 1px solid var(--ac); color: var(--ac);
+            font-weight: 500; transition: all 0.3s var(--eo);
+        }
+        .nav-right .cta-link:hover { background: var(--ac); color: var(--bg); }
+        .mob-btn {
+            display: none; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 4px;
+        }
+        .mob-btn span { display: block; width: 22px; height: 1.5px; background: var(--tx); transition: all 0.3s; }
+        .mob-overlay {
+            display: none; position: fixed; inset:0; z-index:99;
+            background: rgba(12,15,20,0.97); backdrop-filter: blur(30px);
+            flex-direction: column; justify-content: center; align-items: center; gap: 2rem;
+        }
+        .mob-overlay.open { display: flex; }
+        .mob-overlay a { font-family: var(--serif); font-size: 1.8rem; color: var(--txh); transition: color 0.3s; }
+        .mob-overlay a:hover { color: var(--ac); }
+        .mob-close {
+            position: absolute; top: 1.5rem; right: 1.5rem;
+            background: none; border: none; color: var(--tx); font-size: 1.5rem; cursor: pointer;
+        }
+
+        /* HERO — asymmetric two-column */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            padding-top: 68px;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80&auto=format') center/cover no-repeat;
+            opacity: 0.04;
+            pointer-events: none;
+        }
+        .hero-main {
+            display: flex; flex-direction: column; justify-content: center;
+            padding: clamp(3rem,6vw,7rem) clamp(1.5rem,5vw,5rem);
+            padding-right: clamp(2rem,4vw,4rem);
+            position: relative;
+        }
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.6rem,5.5vw,4.8rem);
+            font-weight: 400; line-height: 1.08; color: var(--txh);
+        }
+        .hero h1 em { font-style: italic; color: var(--ac); }
+        .hero-body {
+            margin-top: 1.8rem;
+            font-size: clamp(0.95rem,1.15vw,1.08rem);
+            color: var(--tx2); max-width: 48ch; line-height: 1.85;
+        }
+        .hero-cta {
+            margin-top: 2.5rem;
+            display: inline-flex; align-items: center; gap: 0.6em;
+            padding: 0.85em 2.2em;
+            background: var(--ac); color: var(--bg);
+            font-family: var(--sans); font-size: 0.82rem; font-weight: 500;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            border: none; cursor: pointer; transition: all 0.3s var(--eo);
+            align-self: flex-start;
+        }
+        .hero-cta:hover { background: var(--ac2); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(201,169,110,0.12); }
+        .hero-side {
+            background: var(--bg2);
+            border-left: 1px solid var(--br);
+            display: flex; flex-direction: column; justify-content: center;
+            padding: clamp(3rem,6vw,7rem) clamp(2rem,4vw,4rem);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-side::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1497215842964-222b430dc094?w=960&q=80&auto=format') center/cover no-repeat;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+        .hero-side .stat-block {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--br);
+            position: relative;
+        }
+        .hero-side .stat-block:last-child { border-bottom: none; }
+        .stat-block h3 {
+            font-family: var(--sans);
+            font-size: 0.68rem; font-weight: 500;
+            letter-spacing: 0.3em; text-transform: uppercase; color: var(--ac);
+            margin-bottom: 0.6rem;
+        }
+        .stat-block p {
+            font-family: var(--serif);
+            font-size: clamp(1.3rem,2vw,1.7rem);
+            font-weight: 400; color: var(--txh); line-height: 1.4;
+        }
+
+        /* SERVICES — 3-col grid */
+        .services-band {
+            background: var(--bg);
+            padding: clamp(4rem,7vh,6rem) 0;
+            border-top: 1px solid var(--br);
+            border-bottom: 1px solid var(--br);
+        }
+        .services-header {
+            padding: 0 clamp(1.5rem,5vw,5rem);
+            margin-bottom: 3rem;
+        }
+        .services-header h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem,3.2vw,2.6rem);
+            font-weight: 400; color: var(--txh); line-height: 1.15;
+        }
+        .services-header h2 em { font-style: italic; color: var(--ac); }
+        .services-scroll {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--br);
+            margin: 0 clamp(1.5rem,5vw,5rem);
+        }
+        .svc {
+            background: var(--bg);
+            padding: 2.5rem 2rem;
+            transition: background 0.4s var(--eo);
+        }
+        .svc:hover { background: var(--bg2); }
+        .svc-icon {
+            width: 40px; height: 40px;
+            border: 1px solid var(--br);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--ac); font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .svc:hover .svc-icon { border-color: var(--ac); }
+        .svc h3 {
+            font-family: var(--serif);
+            font-size: 1.2rem; font-weight: 400; color: var(--txh);
+            margin-bottom: 0.6rem;
+        }
+        .svc p { font-size: 0.85rem; color: var(--tx2); line-height: 1.7; }
+
+        /* IMAGE BAND — cinematic strip between sections */
+        .img-band {
+            height: clamp(200px, 30vw, 340px);
+            position: relative;
+            overflow: hidden;
+        }
+        .img-band img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.35) saturate(0.7);
+            transition: filter 1.2s var(--eo);
+        }
+        .img-band:hover img {
+            filter: brightness(0.45) saturate(0.8);
+        }
+        .img-band::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, var(--bg) 0%, transparent 20%, transparent 80%, var(--bg2) 100%);
+            pointer-events: none;
+        }
+
+        /* MANIFESTO — full-width statement with ghost W */
+        .manifesto {
+            padding: clamp(5rem,10vh,9rem) clamp(1.5rem,5vw,5rem);
+            background: var(--bg2);
+            position: relative;
+            overflow: hidden;
+        }
+        .manifesto::before {
+            content: 'W';
+            position: absolute;
+            right: -3%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--serif);
+            font-size: clamp(20rem,35vw,40rem);
+            font-weight: 400;
+            color: var(--ac);
+            opacity: 0.02;
+            line-height: 1;
+            pointer-events: none;
+        }
+        .manifesto-inner {
+            max-width: 700px;
+            position: relative;
+        }
+        .manifesto blockquote {
+            font-family: var(--serif);
+            font-size: clamp(1.5rem,2.8vw,2.2rem);
+            font-weight: 400;
+            color: var(--txh);
+            line-height: 1.45;
+            border-left: 2px solid var(--ac);
+            padding-left: 1.5rem;
+        }
+        .manifesto-sub {
+            margin-top: 2rem;
+            font-size: 0.92rem;
+            color: var(--tx2);
+            line-height: 1.85;
+            max-width: 55ch;
+        }
+
+        /* CAPABILITIES — two-column with line items */
+        .capabilities {
+            padding: clamp(4rem,7vh,6rem) clamp(1.5rem,5vw,5rem);
+            border-top: 1px solid var(--br);
+        }
+        .cap-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .cap-left h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem,3vw,2.4rem);
+            font-weight: 400; color: var(--txh); line-height: 1.2;
+        }
+        .cap-left h2 em { font-style: italic; color: var(--ac); }
+        .cap-left p {
+            margin-top: 1.2rem;
+            font-size: 0.95rem; color: var(--tx2); line-height: 1.8;
+        }
+        .cap-list { display: flex; flex-direction: column; }
+        .cap-item {
+            padding: 1.4rem 0;
+            border-bottom: 1px solid var(--br);
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1.2rem;
+            align-items: baseline;
+            transition: padding-left 0.3s var(--eo);
+        }
+        .cap-item:first-child { border-top: 1px solid var(--br); }
+        .cap-item:hover { padding-left: 0.5rem; }
+        .cap-tag {
+            font-size: 0.62rem; font-weight: 500;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--ac);
+            white-space: nowrap;
+            min-width: 80px;
+        }
+        .cap-desc { font-size: 0.92rem; color: var(--tx2); line-height: 1.6; }
+
+        /* CONTACT — centred */
+        .contact {
+            padding: clamp(4rem,8vh,7rem) clamp(1.5rem,5vw,5rem);
+            background: var(--bg2);
+            border-top: 1px solid var(--br);
+        }
+        .contact-inner { max-width: 640px; margin: 0 auto; }
+        .contact-inner h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem,3vw,2.4rem);
+            font-weight: 400; color: var(--txh); text-align: center;
+        }
+        .contact-inner h2 em { font-style: italic; color: var(--ac); }
+        .contact-intro {
+            text-align: center;
+            font-size: 0.95rem; color: var(--tx2);
+            margin-top: 0.8rem; margin-bottom: 2.5rem; line-height: 1.8;
+        }
+        .contact-email { text-align: center; margin-bottom: 2.5rem; }
+        .contact-email a {
+            font-family: var(--serif);
+            font-size: 1.2rem; color: var(--ac);
+            border-bottom: 1px solid rgba(201,169,110,0.3);
+            padding-bottom: 2px;
+            transition: border-color 0.3s;
+        }
+        .contact-email a:hover { border-color: var(--ac); }
+        .c-form { display: flex; flex-direction: column; gap: 1rem; }
+        .c-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .c-field { display: flex; flex-direction: column; gap: 0.35rem; }
+        .c-field label {
+            font-size: 0.68rem; font-weight: 500;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--tx3);
+        }
+        .c-field input, .c-field textarea, .c-field select {
+            background: var(--bg);
+            border: 1px solid var(--br); color: var(--tx);
+            font-family: var(--sans); font-size: 0.88rem;
+            padding: 0.8em 1em; outline: none;
+            transition: border-color 0.3s; -webkit-appearance: none;
+        }
+        .c-field input:focus, .c-field textarea:focus, .c-field select:focus { border-color: var(--ac); }
+        .c-field textarea { resize: vertical; min-height: 110px; }
+        .hp { position: absolute; left:-9999px; opacity:0; height:0; width:0; overflow:hidden; pointer-events:none; }
+        .c-submit { margin-top: 0.5rem; }
+        .c-submit button {
+            width: 100%;
+            padding: 0.85em 2em;
+            background: var(--ac); color: var(--bg);
+            font-family: var(--sans); font-size: 0.82rem; font-weight: 500;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            border: none; cursor: pointer; transition: all 0.3s var(--eo);
+        }
+        .c-submit button:hover { background: var(--ac2); }
+        .c-note {
+            font-size: 0.7rem; color: var(--tx3); text-align: center;
+            margin-top: 0.8rem; line-height: 1.5;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 2.5rem clamp(1.5rem,5vw,5rem);
+            border-top: 1px solid var(--br);
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 1rem;
+        }
+        .footer-left { font-size: 0.68rem; color: var(--tx3); letter-spacing: 0.03em; }
+        .footer-right { display: flex; gap: 1.5rem; list-style: none; }
+        .footer-right a {
+            font-size: 0.7rem; color: var(--tx3);
+            letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.3s;
+        }
+        .footer-right a:hover { color: var(--ac); }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+        .reveal { opacity:0; transform:translateY(24px); transition: all 0.6s var(--eo); }
+        .reveal.vis { opacity:1; transform:translateY(0); }
+        .hero-main > * { opacity:0; animation: fadeUp 0.7s var(--eo) forwards; }
+        .hero-main > *:nth-child(1) { animation-delay: 0.15s; }
+        .hero-main > *:nth-child(2) { animation-delay: 0.3s; }
+        .hero-main > *:nth-child(3) { animation-delay: 0.45s; }
+        .hero-side .stat-block { opacity:0; animation: fadeUp 0.6s var(--eo) forwards; }
+        .hero-side .stat-block:nth-child(1) { animation-delay: 0.4s; }
+        .hero-side .stat-block:nth-child(2) { animation-delay: 0.55s; }
+        .hero-side .stat-block:nth-child(3) { animation-delay: 0.7s; }
+
+        @media (max-width:900px) {
+            .nav-right { display: none; }
+            .mob-btn { display: flex; }
+            .hero { grid-template-columns: 1fr; }
+            .hero-side { border-left: none; border-top: 1px solid var(--br); }
+            .services-scroll { grid-template-columns: 1fr; }
+            .cap-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .c-row { grid-template-columns: 1fr; }
+            .footer { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-left">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="36" fill="none" stroke="#c9a96e" stroke-width="1.2"/>
+                <path d="M22 30 L30 54 L40 38 L50 54 L58 30" fill="none" stroke="#e8e4df" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+            <span class="nav-name">Worech <span>Consulting</span></span>
+        </a>
+        <ul class="nav-right">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#capabilities">Capabilities</a></li>
+            <li><a href="#contact" class="cta-link">Get in touch</a></li>
+        </ul>
+        <button class="mob-btn" onclick="toggleMob()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <div class="mob-overlay" id="mobNav">
+        <button class="mob-close" onclick="toggleMob()">&times;</button>
+        <a href="#services" onclick="toggleMob()">Services</a>
+        <a href="#capabilities" onclick="toggleMob()">Capabilities</a>
+        <a href="#contact" onclick="toggleMob()">Get in Touch</a>
+    </div>
+
+    <header class="hero">
+        <div class="hero-main">
+            <h1>IT consultancy built around <em>delivery.</em></h1>
+            <p class="hero-body">
+                Worech Consulting provides hands-on project leadership, digital transformation expertise, 
+                and PMO governance for organisations managing complex technology change.
+            </p>
+            <a href="#contact" class="hero-cta">Get in touch &rarr;</a>
+        </div>
+        <div class="hero-side">
+            <div class="stat-block">
+                <h3>Focus</h3>
+                <p>Project management, digital transformation, and technology advisory across corporate environments.</p>
+            </div>
+            <div class="stat-block">
+                <h3>Engagement</h3>
+                <p>Embedded within your teams — owning delivery, not observing it.</p>
+            </div>
+            <div class="stat-block">
+                <h3>Structure</h3>
+                <p>A limited company registered in England &amp; Wales, operating independently and at pace.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="services-band" id="services">
+        <div class="services-header">
+            <h2 class="reveal">What we <em>deliver.</em></h2>
+        </div>
+        <div class="services-scroll">
+            <div class="svc reveal">
+                <div class="svc-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>Digital Transformation</h3>
+                <p>Leading technology-driven change from roadmap through to adoption. Platform migrations, system integrations, and enterprise modernisation programmes.</p>
+            </div>
+            <div class="svc reveal">
+                <div class="svc-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                </div>
+                <h3>Project &amp; Programme Management</h3>
+                <p>Hands-on delivery leadership for complex, high-stakes initiatives. Structured governance, stakeholder alignment, and pace — using whichever methodology fits.</p>
+            </div>
+            <div class="svc reveal">
+                <div class="svc-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                </div>
+                <h3>PMO &amp; Governance</h3>
+                <p>Designing and running PMO functions that create real oversight. Portfolio reporting, stage-gate controls, resource management, and benefits tracking.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="img-band">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format" alt="" loading="lazy">
+    </div>
+
+    <section class="manifesto">
+        <div class="manifesto-inner reveal">
+            <blockquote>
+                We operate as an extension of your organisation — embedded within teams, accountable for outcomes, 
+                and focused on moving work forward.
+            </blockquote>
+            <p class="manifesto-sub">
+                Worech Consulting exists because complex programmes need experienced practitioners who take 
+                ownership, communicate clearly, and deliver without requiring management. We bring structure 
+                where it's missing and challenge where it's needed.
+            </p>
+        </div>
+    </section>
+
+    <section class="capabilities" id="capabilities">
+        <div class="cap-grid">
+            <div class="cap-left reveal">
+                <h2>Deeper <em>capabilities.</em></h2>
+                <p>Beyond core project delivery, we bring specialist knowledge across a range of disciplines that support successful outcomes.</p>
+            </div>
+            <div class="cap-list">
+                <div class="cap-item reveal">
+                    <span class="cap-tag">Advisory</span>
+                    <span class="cap-desc">Vendor-agnostic technology advice. Architecture reviews, solution assessments, and build-vs-buy analysis grounded in delivery experience.</span>
+                </div>
+                <div class="cap-item reveal">
+                    <span class="cap-tag">Analysis</span>
+                    <span class="cap-desc">Requirements engineering, process mapping, and solution design — bridging what stakeholders need and what technology teams build.</span>
+                </div>
+                <div class="cap-item reveal">
+                    <span class="cap-tag">Change</span>
+                    <span class="cap-desc">Stakeholder engagement, communications planning, and training strategies that secure adoption from board level to end user.</span>
+                </div>
+                <div class="cap-item reveal">
+                    <span class="cap-tag">Integration</span>
+                    <span class="cap-desc">Data migration planning, API strategy, and system integration oversight — ensuring platforms work together, not just alongside each other.</span>
+                </div>
+                <div class="cap-item reveal">
+                    <span class="cap-tag">Recovery</span>
+                    <span class="cap-desc">Programme health assessments and intervention for initiatives that have lost direction, budget control, or stakeholder confidence.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="img-band">
+        <img src="https://images.unsplash.com/photo-1767628711891-3e948c13b478?w=1920&q=80&auto=format&fit=crop" alt="" loading="lazy">
+    </div>
+
+    <section class="contact" id="contact">
+        <div class="contact-inner">
+            <h2 class="reveal">Get in <em>touch.</em></h2>
+            <p class="contact-intro reveal">
+                Whether you need project leadership for an active programme, governance expertise, 
+                or a conversation about what's needed — we'd welcome the opportunity to talk.
+            </p>
+            <div class="contact-email reveal">
+                <a href="mailto:hello@worech.com">hello@worech.com</a>
+            </div>
+            <form class="c-form reveal" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="cForm">
+                <div class="hp" aria-hidden="true">
+                    <label for="site">Site</label>
+                    <input type="text" name="site" id="site" tabindex="-1" autocomplete="off">
+                </div>
+                <div class="c-row">
+                    <div class="c-field">
+                        <label for="fname">Full name</label>
+                        <input type="text" id="fname" name="name" required>
+                    </div>
+                    <div class="c-field">
+                        <label for="femail">Email</label>
+                        <input type="email" id="femail" name="email" required>
+                    </div>
+                </div>
+                <div class="c-field">
+                    <label for="forg">Organisation</label>
+                    <input type="text" id="forg" name="organisation">
+                </div>
+                <div class="c-field">
+                    <label for="fmsg">Message</label>
+                    <textarea id="fmsg" name="message" rows="5" required></textarea>
+                </div>
+                <div class="c-submit">
+                    <button type="submit">Send enquiry &rarr;</button>
+                </div>
+                <div class="c-note">
+                    We aim to respond within one business day. Your information is handled in accordance with our privacy policy.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-left">
+            &copy; 2026 Worech Consulting Limited
+        </div>
+        <ul class="footer-right">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </footer>
+
+    <script>
+        const obs = new IntersectionObserver(es => {
+            es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold:0.1, rootMargin:'0px 0px -30px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50));
+        function toggleMob() { document.getElementById('mobNav').classList.toggle('open'); }
+        document.getElementById('cForm').addEventListener('submit', function(e) {
+            if(document.getElementById('site').value) { e.preventDefault(); return false; }
+        });
+    </script>
+</body>
+</html>
