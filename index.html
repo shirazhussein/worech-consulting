@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- test 1 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Worech Consulting Limited — IT and management consultancy. Digital transformation, project management, and PMO governance.">
@@ -381,6 +380,30 @@
             font-size: 0.7rem; color: var(--tx3); text-align: center;
             margin-top: 0.8rem; line-height: 1.5;
         }
+        .form-status {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            display: none;
+        }
+        .form-status.active { display: block; }
+        .form-status h3 {
+            font-family: var(--serif);
+            font-size: 1.6rem; font-weight: 400; color: var(--txh);
+            margin-bottom: 0.6rem;
+        }
+        .form-status p {
+            font-size: 0.92rem; color: var(--tx2); line-height: 1.7;
+        }
+        .form-status .status-icon {
+            width: 48px; height: 48px;
+            border: 1.5px solid var(--ac);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.2rem;
+            color: var(--ac); font-size: 1.2rem;
+        }
+        .c-submit button:disabled {
+            opacity: 0.6; cursor: not-allowed;
+        }
 
         /* FOOTER */
         .footer {
@@ -564,9 +587,9 @@
                 or a conversation about what's needed — we'd welcome the opportunity to talk.
             </p>
             <div class="contact-email reveal">
-                <a href="mailto:hello@worech.com">hello@worech.com</a>
+                <a href="mailto:consulting@worech.com">consulting@worech.com</a>
             </div>
-            <form class="c-form reveal" action="https://formspree.io/f/xojrlldnHow" method="POST" id="cForm">
+            <form class="c-form reveal" action="contact.php" method="POST" id="cForm">
                 <div class="hp" aria-hidden="true">
                     <label for="site">Site</label>
                     <input type="text" name="site" id="site" tabindex="-1" autocomplete="off">
@@ -596,12 +619,23 @@
                     We aim to respond within one business day. Your information is handled in accordance with our privacy policy.
                 </div>
             </form>
+            <div class="form-status" id="formSuccess">
+                <div class="status-icon">&#10003;</div>
+                <h3>Message received.</h3>
+                <p>Thank you for getting in touch. We'll respond within one business day.</p>
+            </div>
+            <div class="form-status" id="formError">
+                <div class="status-icon">!</div>
+                <h3>Something went wrong.</h3>
+                <p>Please try again, or email us directly at <a href="mailto:consulting@worech.com" style="color:var(--ac)">consulting@worech.com</a></p>
+            </div>
         </div>
     </section>
 
     <footer class="footer">
         <div class="footer-left">
-            &copy; 2026 Worech Consulting Limited
+            &copy; 2026 Worech Consulting Limited &mdash; Company No. 17205361<br>
+            Registered office: 71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ
         </div>
         <ul class="footer-right">
             <li><a href="#services">Services</a></li>
@@ -617,8 +651,35 @@
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50));
         function toggleMob() { document.getElementById('mobNav').classList.toggle('open'); }
-        document.getElementById('cForm').addEventListener('submit', function(e) {
-            if(document.getElementById('site').value) { e.preventDefault(); return false; }
+
+        document.getElementById('cForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            if(document.getElementById('site').value) return;
+
+            const form = e.target;
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Sending...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if(response.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('formSuccess').classList.add('active');
+                } else {
+                    form.style.display = 'none';
+                    document.getElementById('formError').classList.add('active');
+                }
+            } catch(err) {
+                form.style.display = 'none';
+                document.getElementById('formError').classList.add('active');
+            }
         });
     </script>
 </body>
